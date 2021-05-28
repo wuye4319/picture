@@ -1,0 +1,82 @@
+{
+	"pages": [{
+			"path": "pages/list/chahua",
+			"style": {
+				"navigationBarTitleText": "插画",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/list/hot",
+			"style": {
+				"navigationBarTitleText": "壁纸",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/list/face",
+			"style": {
+				"navigationBarTitleText": "头像",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"navigationBarBackgroundColor": "#000000",
+				"backgroundColor": "#000000",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							"type": "share"
+						}]
+					}
+				},
+				"h5": {
+					"titleNView": {
+						"buttons": [{
+								"type": "share"
+							},
+							{
+								"type": "favorite"
+							}
+						]
+					}
+				}
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "恋美兔精美壁纸",
+		"navigationBarBackgroundColor": "#00fad3",
+		"backgroundColor": "#EFEFEF"
+	},
+	"tabBar": {
+		"color": "#444444",
+		"selectedColor": "#00fad3",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/list/chahua",
+				"iconPath": "static/index-0.png",
+				"selectedIconPath": "static/index-1.png",
+				"text": "插画"
+			},
+			{
+				"pagePath": "pages/list/hot",
+				"iconPath": "static/hot-0.png",
+				"selectedIconPath": "static/hot-1.png",
+				"text": "壁纸"
+			},
+			{
+				"pagePath": "pages/list/face",
+				"iconPath": "static/center-0.png",
+				"selectedIconPath": "static/center-1.png",
+				"text": "头像"
+			}
+		]
+	}
+}
