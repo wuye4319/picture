@@ -1,6 +1,24 @@
 <template>
   <view class="index">
-    <swiper @change="swpierChange" :style="{ height: screenHeight + 'px' }">
+    <!-- 自定义标题栏 -->
+    <view
+      class="title-w"
+      :style="{ top: titleHeight.statusBarHeight + 5 + 'px' }"
+    >
+      <view class="title-img" @tap="tarBlack()">
+        <image
+          class="fengrui-img"
+          src="../../static/tarblack.png"
+          mode=""
+        ></image>
+      </view>
+      <view class="title-h">{{ imgIndex }}</view>
+    </view>
+    <swiper
+      @change="swpierChange"
+      :current="pageIndex"
+      :style="{ height: screenHeight + 'px' }"
+    >
       <swiper-item
         v-for="(value, index) in data"
         :key="index"
@@ -28,28 +46,32 @@ export default {
   data() {
     return {
       imgShow: false,
-      index: 0,
+      pageIndex: 0,
       showBtn: false,
       screenHeight: 0,
       imgLength: 0,
       providerList: [],
+      titleHeight: [],
+      imgIndex: '',
       data: []
     }
   },
   onLoad(e) {
-    this.index = e.index
+    this.stytemInfo()
+    this.pageIndex = e.index
     // #ifdef APP-PLUS
     if (plus.os.name === 'Android') {
       this.showBtn = true
     }
     // #endif
     this.data = this.$queue.getData('picture-detail')
+    console.log(this.data)
     this.screenHeight = uni.getSystemInfoSync().windowHeight
     this.imgLength = this.data.length
-    console.log(this.index);
-    uni.setNavigationBarTitle({
-      title: this.index + '/' + this.imgLength
-    })
+    // uni.setNavigationBarTitle({
+    //   title: parseInt(this.pageIndex) + 1 + '/' + this.imgLength
+    // })
+    this.imgIndex = parseInt(this.pageIndex) + 1 + '/' + this.imgLength
     // 获取分享通道
     uni.getProvider({
       service: 'share',
@@ -89,7 +111,7 @@ export default {
     return {
       title: '欢迎使用uni-app看图模板',
       path: '/pages/detail/detail?data=' + this.data,
-      imageUrl: this.data[this.index]
+      imageUrl: this.data[this.pageIndex]
     }
   },
   onNavigationBarButtonTap(e) {
@@ -120,7 +142,7 @@ export default {
           type: 0,
           title: 'uni-app模版',
           summary: '欢迎使用uni-app模版',
-          imageUrl: this.data[this.index],
+          imageUrl: this.data[this.pageIndex],
           href: 'https://uniapp.dcloud.io',
           success: (res) => {
             console.log('success:' + JSON.stringify(res))
@@ -136,9 +158,25 @@ export default {
     })
   },
   methods: {
+    // 获取系统信息
+    stytemInfo: function () {
+      var that = this
+      uni.getSystemInfo({
+        success: function (res) {
+          that.titleHeight = res
+          console.log(that.titleHeight)
+        }
+      })
+    },
+    // 左上角返回按钮
+    tarBlack: function () {
+      uni.navigateBack({
+        delta: 1
+      })
+    },
     download() {
       uni.downloadFile({
-        url: this.data[this.index],
+        url: this.domain(this.data[this.pageIndex].url),
         success: (e) => {
           uni.saveImageToPhotosAlbum({
             filePath: e.tempFilePath,
@@ -187,7 +225,7 @@ export default {
           'android.graphics.BitmapFactory'
         )
         uni.downloadFile({
-          url: this.data[this.index],
+          url: this.data[this.pageIndex],
           success: (e) => {
             var filePath = e.tempFilePath.replace('file://', '')
             var bitmap = BitmapFactory.decodeFile(filePath)
@@ -215,10 +253,11 @@ export default {
     },
     //#endif
     swpierChange(e) {
-      this.index = e.detail.current
-      uni.setNavigationBarTitle({
-        title: e.detail.current + 1 + '/' + this.imgLength
-      })
+      this.pageIndex = e.detail.current
+      this.imgIndex = e.detail.current + 1 + '/' + this.imgLength
+      // uni.setNavigationBarTitle({
+      //   title: e.detail.current + 1 + '/' + this.imgLength
+      // })
     },
     domain(url) {
       if (url.indexOf('http') === -1) {
@@ -251,7 +290,38 @@ export default {
 page {
   background-color: #000;
 }
-
+.title-h {
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  margin-left: 3px;
+}
+.state-h {
+  background-color: red;
+}
+.title-w {
+  display: flex;
+  padding: 0upx 12upx;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30upx;
+  left: 0;
+  position: absolute;
+  width: 22%;
+  height: 60upx;
+  margin-left: 20upx;
+  align-items: center;
+  z-index: 99;
+}
+.title-img {
+  height: 48upx;
+  width: 48upx;
+  overflow: hidden;
+}
+.fengrui-img {
+  height: 100%;
+  width: 100%;
+}
 swiper {
   flex: 1;
   width: 750upx;

@@ -132,7 +132,6 @@ export default {
       this.$Request.get(`/picture/types-infor/`).then((res) => {
         if (res.status === 200) {
           this.category = res.data
-          console.log(res.data)
         } else {
           console.log('请求失败:', res)
         }

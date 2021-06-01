@@ -1,5 +1,6 @@
 {
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/list/chahua",
 			"style": {
 				"navigationBarTitleText": "插画",
@@ -24,23 +25,29 @@
 			"path": "pages/detail/detail",
 			"style": {
 				"navigationBarTitleText": "详情",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom",
 				"navigationBarBackgroundColor": "#000000",
 				"backgroundColor": "#000000",
 				"app-plus": {
 					"bounce": "none",
+					"scrollIndicator": "none",
 					"titleNView": {
-						"buttons": [{
-							"type": "share"
-						}]
+						"type": "transparent",
+						"buttons": [
+							{
+								"type": "menu"
+							}
+						]
 					}
 				},
 				"h5": {
 					"titleNView": {
-						"buttons": [{
-								"type": "share"
-							},
+						"type": "transparent",
+						"buttons": [
 							{
-								"type": "favorite"
+								"type": "share"
 							}
 						]
 					}
@@ -59,7 +66,8 @@
 		"selectedColor": "#00fad3",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
-		"list": [{
+		"list": [
+			{
 				"pagePath": "pages/list/chahua",
 				"iconPath": "static/index-0.png",
 				"selectedIconPath": "static/index-1.png",

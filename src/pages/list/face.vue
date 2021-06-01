@@ -1,7 +1,7 @@
 <template>
   <view class="hot-index">
     <block v-for="(item, index) in lists" :key="index">
-      <view class="card card-list2" @click="goDetail(item)">
+      <view class="card card-list2" @click="goDetail(lists, index)">
         <image
           class="card-img card-list2-img"
           mode="aspectFill"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { domain } from "../../common/config";
+import { domain } from '../../common/config'
 
 export default {
   data() {
@@ -120,10 +120,10 @@ export default {
         return url
       }
     },
-    goDetail(e) {
+    goDetail(e, index) {
       this.$queue.setData('picture-detail', e)
       uni.navigateTo({
-        url: '../detail/detail?data=' + encodeURIComponent(JSON.stringify(e))
+        url: '../detail/detail?index=' + index
       })
     }
   }

@@ -1,12 +1,8 @@
 <template>
   <view class="index">
     <block v-for="(item, index) in list" :key="index">
-      <view class="card" @click="goDetail(item)">
-        <image
-          class="card-img"
-          :src="domain(item.url)"
-          mode="widthFix"
-        ></image>
+      <view class="card" @click="goDetail(list, index)">
+        <image class="card-img" :src="domain(item.url)" mode="widthFix"></image>
         <!-- <text class="card-num-view"
           >{{ list.length }}P</text
         > -->
@@ -20,7 +16,7 @@
 </template>
 
 <script>
-import { domain } from "../../common/config";
+import { domain } from '../../common/config'
 
 export default {
   data() {
@@ -124,10 +120,10 @@ export default {
         return url
       }
     },
-    goDetail(e) {
+    goDetail(e, index) {
       this.$queue.setData('picture-detail', e)
       uni.navigateTo({
-        url: '../detail/detail?data=' + encodeURIComponent(JSON.stringify(e))
+        url: '../detail/detail?index=' + index
       })
     },
     share(e) {
